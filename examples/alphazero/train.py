@@ -63,7 +63,7 @@ config: Config = Config(**conf_dict)
 print(config)
 
 env = pgx.make(config.env_id)
-baseline = pgx.make_baseline_model(config.env_id + "_v0")
+#baseline = pgx.make_baseline_model(config.env_id + "_v0")
 
 
 def forward_fn(x, is_eval=False):
@@ -287,15 +287,15 @@ if __name__ == "__main__":
             # Evaluation
             rng_key, subkey = jax.random.split(rng_key)
             keys = jax.random.split(subkey, num_devices)
-            R = evaluate(keys, model)
-            log.update(
-                {
-                    f"eval/vs_baseline/avg_R": R.mean().item(),
-                    f"eval/vs_baseline/win_rate": ((R == 1).sum() / R.size).item(),
-                    f"eval/vs_baseline/draw_rate": ((R == 0).sum() / R.size).item(),
-                    f"eval/vs_baseline/lose_rate": ((R == -1).sum() / R.size).item(),
-                }
-            )
+            #R = evaluate(keys, model)
+            #log.update(
+            #    {
+            #        f"eval/vs_baseline/avg_R": R.mean().item(),
+            #        f"eval/vs_baseline/win_rate": ((R == 1).sum() / R.size).item(),
+            #        f"eval/vs_baseline/draw_rate": ((R == 0).sum() / R.size).item(),
+            #        f"eval/vs_baseline/lose_rate": ((R == -1).sum() / R.size).item(),
+            #    }
+            #)
 
             # Store checkpoints
             model_0, opt_state_0 = jax.tree_util.tree_map(lambda x: x[0], (model, opt_state))
